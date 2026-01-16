@@ -1,0 +1,6 @@
+{
+  "port": "",
+  "baud": "115200",
+  "auto_connect": false,
+  "auto_scale": true
+}

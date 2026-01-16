@@ -75,7 +75,67 @@ const unsigned char pcm_data_beep[5678] = {
 
 ---
 
-### 2. 数据波形生成器 (`数据波形生成器.py`)
+### 2. 串口实时波形显示工具 (`serial_waveform/serial_waveform_gui.py`)
+
+基于 Tkinter 和 Matplotlib 的串口数据实时波形可视化工具，支持实时显示串口接收的数据波形。
+
+#### 功能特点
+
+- ✅ 实时串口数据波形显示
+- ✅ 自动检测可用串口
+- ✅ 支持多种波特率（9600, 19200, 38400, 57600, 115200, 230400, 460800）
+- ✅ 自动连接功能
+- ✅ 暂停/继续显示
+- ✅ Y 轴自动缩放
+- ✅ 手动缩放控制（Y+、Y-、Reset）
+- ✅ 清空缓冲区
+- ✅ ALC/AGC 参数设置（支持 AT 命令配置）
+- ✅ 配置自动保存和恢复
+- ✅ 支持多种数据格式（自动提取数字）
+
+#### 使用方法
+
+**方式一：直接运行脚本**
+
+```bash
+cd serial_waveform
+python serial_waveform_gui.py
+```
+
+**方式二：从项目根目录运行**
+
+```bash
+python serial_waveform/serial_waveform_gui.py
+```
+
+#### 使用步骤
+
+1. 选择串口和波特率
+2. 点击 "Connect" 连接串口
+3. 串口数据会自动显示为实时波形
+4. 使用 "Pause" 暂停显示，使用 "Resume" 继续
+5. 使用 "Y+"、"Y-" 调整 Y 轴缩放，使用 "Reset" 重置视图
+6. 勾选 "Auto Y" 启用自动 Y 轴缩放
+7. 点击 "ALC设置" 可以配置 ALC/AGC 参数（需要设备支持 AT 命令）
+
+#### 数据格式
+
+工具会自动从串口接收的数据中提取数字，支持以下格式：
+- 单行单个数字：`1234`
+- 单行多个数字：`1234 5678 9012`
+- 混合格式：`Value: 1234, 5678\n9012`
+
+#### 配置说明
+
+配置文件 `serial_waveform_gui.json` 会自动保存以下设置：
+- 串口端口
+- 波特率
+- 自动连接选项
+- 自动缩放选项
+
+---
+
+### 3. 数据波形生成器 (`数据波形生成器.py`)
 
 基于 Tkinter 和 Matplotlib 的图形化数据波形可视化工具。
 
@@ -123,20 +183,43 @@ python 数据波形生成器.py
 
 ### 依赖库
 
-**WAV 转 C 数组工具：**
-- 仅需 Python 标准库（`os`, `textwrap`）
+项目已提供 `requirements.txt` 文件，包含所有依赖。
 
-**数据波形生成器：**
-- `tkinter`（通常随 Python 安装）
-- `matplotlib`
-
-安装依赖：
+**安装所有依赖：**
 
 ```bash
-pip install matplotlib
+pip install -r requirements.txt
 ```
 
+**各工具依赖说明：**
+
+- **WAV 转 C 数组工具**：仅需 Python 标准库（`os`, `textwrap`, `binascii`）
+- **串口实时波形显示工具**：需要 `pyserial`, `numpy`, `matplotlib`, `tkinter`
+- **数据波形生成器**：需要 `matplotlib`, `tkinter`（通常随 Python 安装）
+
+**主要依赖包：**
+
+- `pyserial>=3.5` - 串口通信
+- `numpy>=1.20.0` - 数值计算
+- `matplotlib>=3.5.0` - 数据可视化
+
 ---
+
+## 📁 项目结构
+
+```
+PythonTools/
+├── serial_waveform/          # 串口实时波形显示工具
+│   ├── serial_waveform_gui.py
+│   ├── serial_waveform_gui.json
+│   └── alc/                   # ALC/AGC 参数配置模块
+│       ├── __init__.py
+│       └── alc_config.py
+├── wav_to_c_array.py          # WAV 转 C 数组工具
+├── 数据波形生成器.py          # 数据波形生成器
+├── requirements.txt           # 项目依赖
+└── README.md                  # 项目说明
+```
 
 ## 📝 注意事项
 
@@ -146,6 +229,14 @@ pip install matplotlib
 - 变量名会自动处理特殊字符（`-`、空格等会替换为 `_`）
 - 数组大小在声明时已指定，无需额外的长度变量
 - 默认只处理指定目录的第一层，如需递归处理子目录，设置 `recursive=True`
+
+### 串口实时波形显示工具
+
+- 需要串口设备支持，确保串口驱动已正确安装
+- 数据缓冲区大小为 1024 个采样点
+- Y 轴默认范围为 -32768 到 32767（16 位整数范围）
+- ALC 参数设置功能需要设备支持 AT 命令协议
+- 配置文件会自动保存在工具所在目录
 
 ### 数据波形生成器
 

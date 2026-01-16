@@ -1,0 +1,10 @@
+# Python Tools 项目依赖
+
+# 串口通信
+pyserial>=3.5
+
+# 数值计算
+numpy>=1.20.0
+
+# 数据可视化
+matplotlib>=3.5.0
