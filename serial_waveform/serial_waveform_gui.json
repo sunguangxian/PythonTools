@@ -2,5 +2,9 @@
   "port": "",
   "baud": "115200",
   "auto_connect": false,
-  "auto_scale": true
+  "auto_scale": false,
+  "sample_rate": 1000.0,
+  "timebase": 9.999999999999999e-06,
+  "volts_per_div": 1.0,
+  "volts_per_count": 1.0
 }

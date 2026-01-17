@@ -77,7 +77,7 @@ const unsigned char pcm_data_beep[5678] = {
 
 ### 2. 串口实时波形显示工具 (`serial_waveform/serial_waveform_gui.py`)
 
-基于 Tkinter 和 Matplotlib 的串口数据实时波形可视化工具，支持实时显示串口接收的数据波形。
+基于 PyQtGraph + PyQt5 的串口数据实时波形可视化工具，支持实时显示串口接收的数据波形。
 
 #### 功能特点
 
@@ -86,7 +86,9 @@ const unsigned char pcm_data_beep[5678] = {
 - ✅ 支持多种波特率（9600, 19200, 38400, 57600, 115200, 230400, 460800）
 - ✅ 自动连接功能
 - ✅ 暂停/继续显示
+- ✅ 时间基准可调（Timebase）
 - ✅ Y 轴自动缩放
+- ✅ V/div 分度、零位线与网格显示
 - ✅ 手动缩放控制（Y+、Y-、Reset）
 - ✅ 清空缓冲区
 - ✅ ALC/AGC 参数设置（支持 AT 命令配置）
@@ -194,7 +196,7 @@ pip install -r requirements.txt
 **各工具依赖说明：**
 
 - **WAV 转 C 数组工具**：仅需 Python 标准库（`os`, `textwrap`, `binascii`）
-- **串口实时波形显示工具**：需要 `pyserial`, `numpy`, `matplotlib`, `tkinter`
+- **串口实时波形显示工具**：需要 `pyserial`, `numpy`, `pyqtgraph`, `PyQt5`
 - **数据波形生成器**：需要 `matplotlib`, `tkinter`（通常随 Python 安装）
 
 **主要依赖包：**
@@ -202,6 +204,8 @@ pip install -r requirements.txt
 - `pyserial>=3.5` - 串口通信
 - `numpy>=1.20.0` - 数值计算
 - `matplotlib>=3.5.0` - 数据可视化
+- `pyqtgraph>=0.13.0` - 波形显示
+- `PyQt5>=5.15.0` - Qt GUI
 
 ---
 
